@@ -117,26 +117,33 @@ class Action implements OptionsInterface
     {
         $resolver->setRequired(array('route'));
 
-        $resolver->setDefaults(array(
-            'route_parameters' => array(),
-            'icon' => '',
-            'label' => '',
-            'confirm' => false,
-            'confirm_message' => '',
-            'attributes' => array(),
-            'role' => '',
-            'render_if' => array()
-        ));
+        $resolver->setDefaults(
+            array(
+                'route_parameters' => array(),
+                'icon' => '',
+                'label' => '',
+                'confirm' => false,
+                'confirm_message' => '',
+                'attributes' => array(),
+                'role' => '',
+                'render_if' => array(),
+            )
+        );
 
-        $resolver->setAllowedTypes('route', 'string');
-        $resolver->setAllowedTypes('route_parameters', 'array');
-        $resolver->setAllowedTypes('icon', 'string');
-        $resolver->setAllowedTypes('label', 'string');
-        $resolver->setAllowedTypes('confirm', 'bool');
-        $resolver->setAllowedTypes('confirm_message', 'string');
-        $resolver->setAllowedTypes('attributes', 'array');
-        $resolver->setAllowedTypes('role', 'string');
-        $resolver->setAllowedTypes('render_if', 'array');
+        $resolver->setAllowedTypes(
+            array(
+                'route',
+                'string',
+                'route_parameters' => 'array',
+                'icon' => 'string',
+                'label' => 'string',
+                'confirm' => 'bool',
+                'confirm_message' => 'string',
+                'attributes' => 'array',
+                'role' => 'string',
+                'render_if' => 'array',
+            )
+        );
 
         return $this;
     }
@@ -150,11 +157,11 @@ class Action implements OptionsInterface
 
         foreach ($options as $key => $value) {
             $key = Container::camelize($key);
-            $method = 'set' . ucfirst($key);
+            $method = 'set'.ucfirst($key);
             if (in_array($method, $methods)) {
                 $this->$method($value);
             } else {
-                throw new \Exception('setOptions(): ' . $method . ' invalid method name');
+                throw new \Exception('setOptions(): '.$method.' invalid method name');
             }
         }
 
@@ -270,7 +277,7 @@ class Action implements OptionsInterface
      */
     public function setConfirm($confirm)
     {
-        $this->confirm = (boolean) $confirm;
+        $this->confirm = (boolean)$confirm;
 
         return $this;
     }
@@ -282,7 +289,7 @@ class Action implements OptionsInterface
      */
     public function getConfirm()
     {
-        return (boolean) $this->confirm;
+        return (boolean)$this->confirm;
     }
 
     /**

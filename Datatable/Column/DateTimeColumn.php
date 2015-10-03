@@ -69,7 +69,7 @@ class DateTimeColumn extends TimeagoColumn
             'date_format' => 'lll',
         ));
 
-        $resolver->addAllowedTypes('date_format', 'string');
+        $resolver->addAllowedTypes(array('date_format' => 'string'));
 
         return $this;
     }
@@ -88,7 +88,7 @@ class DateTimeColumn extends TimeagoColumn
     public function setDateFormat($dateFormat)
     {
         if (empty($dateFormat) || !is_string($dateFormat)) {
-            throw new InvalidArgumentException('setDateFormat(): Expecting non-empty string.');
+            throw new \InvalidArgumentException('setDateFormat(): Expecting non-empty string.');
         }
 
         $this->dateFormat = $dateFormat;

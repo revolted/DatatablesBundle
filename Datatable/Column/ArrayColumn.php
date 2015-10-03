@@ -45,11 +45,11 @@ class ArrayColumn extends Column
     public function setData($data)
     {
         if (empty($data) || !is_string($data)) {
-            throw new InvalidArgumentException('setData(): Expecting non-empty string.');
+            throw new \InvalidArgumentException('setData(): Expecting non-empty string.');
         }
 
         if (false === strstr($data, '.')) {
-            throw new InvalidArgumentException('setData(): An association is expected.');
+            throw new \InvalidArgumentException('setData(): An association is expected.');
         }
 
         $this->data = $data;
@@ -86,12 +86,21 @@ class ArrayColumn extends Column
 
         $resolver->setRequired(array('data'));
 
-        $resolver->setDefault('count', false);
-        $resolver->setDefault('count_action', array());
+        $resolver->setDefaults(
+            array(
+                'count' => false,
+                'count_action',
+                array(),
+            )
+        );
 
-        $resolver->addAllowedTypes('data', 'string');
-        $resolver->setAllowedTypes('count', 'bool');
-        $resolver->addAllowedTypes('count_action', 'array');
+        $resolver->addAllowedTypes(
+            array(
+                'data' => 'string',
+                'count' => 'bool',
+                'count_action' => 'array',
+            )
+        );
 
         return $this;
     }
@@ -109,7 +118,7 @@ class ArrayColumn extends Column
      */
     public function setCount($count)
     {
-        $this->count = (boolean) $count;
+        $this->count = (boolean)$count;
 
         return $this;
     }
@@ -121,7 +130,7 @@ class ArrayColumn extends Column
      */
     public function getCount()
     {
-        return (boolean) $this->count;
+        return (boolean)$this->count;
     }
 
     /**

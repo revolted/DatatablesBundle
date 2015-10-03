@@ -31,26 +31,38 @@ class MultiselectAction extends Action
     {
         $resolver->setRequired(array('route'));
 
-        $resolver->setDefaults(array(
-            'icon' => '',
-            'label' => '',
-            'role' => '',
-            'route_parameters' => array(),
-            'attributes' => array(),
+        $resolver->setDefaults(
+            array(
+                'icon' => '',
+                'label' => '',
+                'role' => '',
+                'route_parameters' => array(),
+                'attributes' => array(),
+            )
+        );
+
+        $resolver->setAllowedTypes(
+            array(
+                'icon' => 'string',
+                'route' => 'string',
+                'label' => 'string',
+                'role' => 'string',
+                'route_parameters' => 'array',
+                'attributes' => 'array',
+            )
+        );
+
+        $resolver->setNormalizers(array(
+            'attributes' =>
+            function ($options, $value) {
+                $value['class'] = array_key_exists(
+                    'class',
+                    $value
+                ) ? ($value['class'].' multiselect_action_click') : 'multiselect_action_click';
+
+                return $value;
+            }
         ));
-
-        $resolver->setAllowedTypes('icon', 'string');
-        $resolver->setAllowedTypes('route', 'string');
-        $resolver->setAllowedTypes('label', 'string');
-        $resolver->setAllowedTypes('role', 'string');
-        $resolver->setAllowedTypes('route_parameters', 'array');
-        $resolver->setAllowedTypes('attributes', 'array');
-
-        $resolver->setNormalizer('attributes', function($options, $value) {
-            $value['class'] = array_key_exists('class', $value) ? ($value['class'] . ' multiselect_action_click') : 'multiselect_action_click';
-
-            return $value;
-        });
 
         return $this;
     }

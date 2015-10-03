@@ -66,13 +66,19 @@ class MultiselectColumn extends ActionColumn
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefaults(array(
-            'attributes' => array(),
-            'value' => 'id',
-        ));
+        $resolver->setDefaults(
+            array(
+                'attributes' => array(),
+                'value' => 'id',
+            )
+        );
 
-        $resolver->addAllowedTypes('attributes', 'array');
-        $resolver->addAllowedTypes('value', 'string');
+        $resolver->addAllowedTypes(
+            array(
+                'attributes' => 'array',
+                'value' => 'string',
+            )
+        );
 
         return $this;
     }
@@ -117,12 +123,12 @@ class MultiselectColumn extends ActionColumn
             throw new InvalidArgumentException('The value attribute is not supported.');
         }
         if (array_key_exists('name', $this->attributes)) {
-            $this->attributes['name'] = 'multiselect_checkbox ' . $this->attributes['name'];
+            $this->attributes['name'] = 'multiselect_checkbox '.$this->attributes['name'];
         } else {
             $this->attributes['name'] = 'multiselect_checkbox';
         }
         if (array_key_exists('class', $this->attributes)) {
-            $this->attributes['class'] = 'multiselect_checkbox ' . $this->attributes['class'];
+            $this->attributes['class'] = 'multiselect_checkbox '.$this->attributes['class'];
         } else {
             $this->attributes['class'] = 'multiselect_checkbox';
         }

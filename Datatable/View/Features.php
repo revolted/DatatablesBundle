@@ -178,37 +178,43 @@ class Features
      */
     private function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'auto_width' => true,
-            'defer_render' => false,
-            'info' => true,
-            'jquery_ui' => false,
-            'length_change' => true,
-            'ordering' => true,
-            'paging' => true,
-            'processing' => true,
-            'scroll_x' => false,
-            'scroll_y' => '',
-            'searching' => true,
-            'server_side' => true,
-            'state_save' => false,
-            'delay' => 0
-        ));
+        $resolver->setDefaults(
+            array(
+                'auto_width' => true,
+                'defer_render' => false,
+                'info' => true,
+                'jquery_ui' => false,
+                'length_change' => true,
+                'ordering' => true,
+                'paging' => true,
+                'processing' => true,
+                'scroll_x' => false,
+                'scroll_y' => '',
+                'searching' => true,
+                'server_side' => true,
+                'state_save' => false,
+                'delay' => 0,
+            )
+        );
 
-        $resolver->setAllowedTypes('auto_width', 'bool');
-        $resolver->setAllowedTypes('defer_render', 'bool');
-        $resolver->setAllowedTypes('info', 'bool');
-        $resolver->setAllowedTypes('jquery_ui', 'bool');
-        $resolver->setAllowedTypes('length_change', 'bool');
-        $resolver->setAllowedTypes('ordering', 'bool');
-        $resolver->setAllowedTypes('paging', 'bool');
-        $resolver->setAllowedTypes('processing', 'bool');
-        $resolver->setAllowedTypes('scroll_x', 'bool');
-        $resolver->setAllowedTypes('scroll_y', 'string');
-        $resolver->setAllowedTypes('searching', 'bool');
-        $resolver->setAllowedTypes('server_side', 'bool');
-        $resolver->setAllowedTypes('state_save', 'bool');
-        $resolver->setAllowedTypes('delay', 'int');
+        $resolver->setAllowedTypes(
+            array(
+                'auto_width' => 'bool',
+                'defer_render' => 'bool',
+                'info' => 'bool',
+                'jquery_ui' => 'bool',
+                'length_change' => 'bool',
+                'ordering' => 'bool',
+                'paging' => 'bool',
+                'processing' => 'bool',
+                'scroll_x' => 'bool',
+                'scroll_y' => 'string',
+                'searching' => 'bool',
+                'server_side' => 'bool',
+                'state_save' => 'bool',
+                'delay' => 'int',
+            )
+        );
 
         return $this;
     }
@@ -227,11 +233,11 @@ class Features
 
         foreach ($options as $key => $value) {
             $key = Container::camelize($key);
-            $method = 'set' . ucfirst($key);
+            $method = 'set'.ucfirst($key);
             if (in_array($method, $methods)) {
                 $this->$method($value);
             } else {
-                throw new Exception('callingSettersWithOptions(): ' . $method . ' invalid method name');
+                throw new Exception('callingSettersWithOptions(): '.$method.' invalid method name');
             }
         }
 
@@ -251,7 +257,7 @@ class Features
      */
     protected function setAutoWidth($autoWidth)
     {
-        $this->autoWidth = (boolean) $autoWidth;
+        $this->autoWidth = (boolean)$autoWidth;
 
         return $this;
     }
@@ -263,7 +269,7 @@ class Features
      */
     public function getAutoWidth()
     {
-        return (boolean) $this->autoWidth;
+        return (boolean)$this->autoWidth;
     }
 
     /**
@@ -275,7 +281,7 @@ class Features
      */
     protected function setDeferRender($deferRender)
     {
-        $this->deferRender = (boolean) $deferRender;
+        $this->deferRender = (boolean)$deferRender;
 
         return $this;
     }
@@ -287,7 +293,7 @@ class Features
      */
     public function getDeferRender()
     {
-        return (boolean) $this->deferRender;
+        return (boolean)$this->deferRender;
     }
 
     /**
@@ -299,7 +305,7 @@ class Features
      */
     protected function setInfo($info)
     {
-        $this->info = (boolean) $info;
+        $this->info = (boolean)$info;
 
         return $this;
     }
@@ -311,7 +317,7 @@ class Features
      */
     public function getInfo()
     {
-        return (boolean) $this->info;
+        return (boolean)$this->info;
     }
 
     /**
@@ -324,7 +330,7 @@ class Features
      */
     protected function setJqueryUi($jQueryUi)
     {
-        $this->jQueryUi = (boolean) $jQueryUi;
+        $this->jQueryUi = (boolean)$jQueryUi;
 
         return $this;
     }
@@ -337,7 +343,7 @@ class Features
      */
     public function getJqueryUi()
     {
-        return (boolean) $this->jQueryUi;
+        return (boolean)$this->jQueryUi;
     }
 
     /**
@@ -349,7 +355,7 @@ class Features
      */
     protected function setLengthChange($lengthChange)
     {
-        $this->lengthChange = (boolean) $lengthChange;
+        $this->lengthChange = (boolean)$lengthChange;
 
         return $this;
     }
@@ -361,7 +367,7 @@ class Features
      */
     public function getLengthChange()
     {
-        return (boolean) $this->lengthChange;
+        return (boolean)$this->lengthChange;
     }
 
     /**
@@ -373,7 +379,7 @@ class Features
      */
     protected function setOrdering($ordering)
     {
-        $this->ordering = (boolean) $ordering;
+        $this->ordering = (boolean)$ordering;
 
         return $this;
     }
@@ -385,7 +391,7 @@ class Features
      */
     public function getOrdering()
     {
-        return (boolean) $this->ordering;
+        return (boolean)$this->ordering;
     }
 
     /**
@@ -397,7 +403,7 @@ class Features
      */
     protected function setPaging($paging)
     {
-        $this->paging = (boolean) $paging;
+        $this->paging = (boolean)$paging;
 
         return $this;
     }
@@ -409,7 +415,7 @@ class Features
      */
     public function getPaging()
     {
-        return (boolean) $this->paging;
+        return (boolean)$this->paging;
     }
 
     /**
@@ -421,7 +427,7 @@ class Features
      */
     protected function setProcessing($processing)
     {
-        $this->processing = (boolean) $processing;
+        $this->processing = (boolean)$processing;
 
         return $this;
     }
@@ -433,7 +439,7 @@ class Features
      */
     public function getProcessing()
     {
-        return (boolean) $this->processing;
+        return (boolean)$this->processing;
     }
 
     /**
@@ -445,7 +451,7 @@ class Features
      */
     protected function setScrollX($scrollX)
     {
-        $this->scrollX = (boolean) $scrollX;
+        $this->scrollX = (boolean)$scrollX;
 
         return $this;
     }
@@ -457,7 +463,7 @@ class Features
      */
     public function getScrollX()
     {
-        return (boolean) $this->scrollX;
+        return (boolean)$this->scrollX;
     }
 
     /**
@@ -493,7 +499,7 @@ class Features
      */
     protected function setSearching($searching)
     {
-        $this->searching = (boolean) $searching;
+        $this->searching = (boolean)$searching;
 
         return $this;
     }
@@ -505,7 +511,7 @@ class Features
      */
     public function getSearching()
     {
-        return (boolean) $this->searching;
+        return (boolean)$this->searching;
     }
 
     /**
@@ -517,7 +523,7 @@ class Features
      */
     protected function setServerSide($serverSide)
     {
-        $this->serverSide = (boolean) $serverSide;
+        $this->serverSide = (boolean)$serverSide;
 
         return $this;
     }
@@ -529,7 +535,7 @@ class Features
      */
     public function getServerSide()
     {
-        return (boolean) $this->serverSide;
+        return (boolean)$this->serverSide;
     }
 
     /**
@@ -541,7 +547,7 @@ class Features
      */
     protected function setStateSave($stateSave)
     {
-        $this->stateSave = (boolean) $stateSave;
+        $this->stateSave = (boolean)$stateSave;
 
         return $this;
     }
@@ -553,7 +559,7 @@ class Features
      */
     public function getStateSave()
     {
-        return (boolean) $this->stateSave;
+        return (boolean)$this->stateSave;
     }
 
     /**

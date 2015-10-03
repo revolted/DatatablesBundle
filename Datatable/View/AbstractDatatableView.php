@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 use Twig_Environment;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -34,16 +35,9 @@ abstract class AbstractDatatableView implements DatatableViewInterface
     /**
      * The AuthorizationChecker service.
      *
-     * @var AuthorizationCheckerInterface
+     * @var SecurityContext
      */
-    protected $authorizationChecker;
-
-    /**
-     * The SecurityTokenStorage service.
-     *
-     * @var TokenStorageInterface
-     */
-    protected $securityToken;
+    protected $securityContext;
 
     /**
      * The Twig_Environment service.
@@ -144,8 +138,7 @@ abstract class AbstractDatatableView implements DatatableViewInterface
     /**
      * Ctor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface         $securityToken
+     * @param SecurityContext $securityContext
      * @param Twig_Environment              $twig
      * @param TranslatorInterface           $translator
      * @param RouterInterface               $router
@@ -153,8 +146,7 @@ abstract class AbstractDatatableView implements DatatableViewInterface
      * @param array                         $templates
      */
     public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $securityToken,
+        SecurityContext $securityContext,
         Twig_Environment $twig,
         TranslatorInterface $translator,
         RouterInterface $router,
@@ -162,8 +154,7 @@ abstract class AbstractDatatableView implements DatatableViewInterface
         array $templates
     )
     {
-        $this->authorizationChecker = $authorizationChecker;
-        $this->securityToken = $securityToken;
+        $this->securityContext = $securityContext;
         $this->twig = $twig;
         $this->translator = $translator;
         $this->router = $router;
@@ -415,5 +406,21 @@ abstract class AbstractDatatableView implements DatatableViewInterface
         }
 
         return $options;
+    }
+
+    /**
+     * @return SecurityContext
+     */
+    public function getSecurityContext()
+    {
+        return $this->securityContext;
+    }
+
+    /**
+     * @param SecurityContext $securityContext
+     */
+    public function setSecurityContext($securityContext)
+    {
+        $this->securityContext = $securityContext;
     }
 }

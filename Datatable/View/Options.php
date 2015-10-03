@@ -216,7 +216,7 @@ class Options
      * All the other parameters will not be altered.
      *
      * @param string $optionKey
-     * @param mixed  $optionValue
+     * @param mixed $optionValue
      *
      * @return $this
      */
@@ -236,49 +236,59 @@ class Options
      */
     private function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'display_start' => 0,
-            'defer_loading' => -1,
-            'dom' => 'lfrtip',
-            'length_menu' => array(10, 25, 50, 100),
-            'order_classes' => true,
-            'order' => array(array(0, 'asc')),
-            'order_multi' => true,
-            'page_length' => 10,
-            'paging_type' => Style::FULL_NUMBERS_PAGINATION,
-            'renderer' => '',
-            'scroll_collapse' => false,
-            'search_delay' => 0,
-            'state_duration' => 7200,
-            'stripe_classes' => array(),
-            'responsive' => false,
-            'class' => Style::BASE_STYLE,
-            'individual_filtering' => false,
-            'individual_filtering_position' => 'foot',
-            'use_integration_options' => false
-        ));
+        $resolver->setDefaults(
+            array(
+                'display_start' => 0,
+                'defer_loading' => -1,
+                'dom' => 'lfrtip',
+                'length_menu' => array(10, 25, 50, 100),
+                'order_classes' => true,
+                'order' => array(array(0, 'asc')),
+                'order_multi' => true,
+                'page_length' => 10,
+                'paging_type' => Style::FULL_NUMBERS_PAGINATION,
+                'renderer' => '',
+                'scroll_collapse' => false,
+                'search_delay' => 0,
+                'state_duration' => 7200,
+                'stripe_classes' => array(),
+                'responsive' => false,
+                'class' => Style::BASE_STYLE,
+                'individual_filtering' => false,
+                'individual_filtering_position' => 'foot',
+                'use_integration_options' => false,
+            )
+        );
 
-        $resolver->setAllowedTypes('display_start', 'int');
-        $resolver->setAllowedTypes('defer_loading', 'int');
-        $resolver->setAllowedTypes('dom', 'string');
-        $resolver->setAllowedTypes('length_menu', 'array');
-        $resolver->setAllowedTypes('order_classes', 'bool');
-        $resolver->setAllowedTypes('order', 'array');
-        $resolver->setAllowedTypes('order_multi', 'bool');
-        $resolver->setAllowedTypes('page_length', 'int');
-        $resolver->setAllowedTypes('paging_type', 'string');
-        $resolver->setAllowedTypes('renderer', 'string');
-        $resolver->setAllowedTypes('scroll_collapse', 'bool');
-        $resolver->setAllowedTypes('search_delay', 'int');
-        $resolver->setAllowedTypes('state_duration', 'int');
-        $resolver->setAllowedTypes('stripe_classes', 'array');
-        $resolver->setAllowedTypes('responsive', 'bool');
-        $resolver->setAllowedTypes('class', 'string');
-        $resolver->setAllowedTypes('individual_filtering', 'bool');
-        $resolver->setAllowedTypes('individual_filtering_position', 'string');
-        $resolver->setAllowedTypes('use_integration_options', 'bool');
+        $resolver->setAllowedTypes(
+            array(
+                'display_start' => 'int',
+                'defer_loading' => 'int',
+                'dom' => 'string',
+                'length_menu' => 'array',
+                'order_classes' => 'bool',
+                'order' => 'array',
+                'order_multi' => 'bool',
+                'page_length' => 'int',
+                'paging_type' => 'string',
+                'renderer' => 'string',
+                'scroll_collapse' => 'bool',
+                'search_delay' => 'int',
+                'state_duration' => 'int',
+                'stripe_classes' => 'array',
+                'responsive' => 'bool',
+                'class' => 'string',
+                'individual_filtering' => 'bool',
+                'individual_filtering_position' => 'string',
+                'use_integration_options' => 'bool',
+            )
+        );
 
-        $resolver->setAllowedValues('individual_filtering_position', array('head', 'foot', 'both'));
+        $resolver->setAllowedValues(
+            array(
+                'individual_filtering_position' => array('head', 'foot', 'both'),
+            )
+        );
 
         return $this;
     }
@@ -297,11 +307,11 @@ class Options
 
         foreach ($options as $key => $value) {
             $key = Container::camelize($key);
-            $method = 'set' . ucfirst($key);
+            $method = 'set'.ucfirst($key);
             if (in_array($method, $methods)) {
                 $this->$method($value);
             } else {
-                throw new Exception('callingSettersWithOptions(): ' . $method . ' invalid method name');
+                throw new Exception('callingSettersWithOptions(): '.$method.' invalid method name');
             }
         }
 
@@ -321,7 +331,7 @@ class Options
      */
     protected function setDisplayStart($displayStart)
     {
-        $this->displayStart = (integer) $displayStart;
+        $this->displayStart = (integer)$displayStart;
 
         return $this;
     }
@@ -333,7 +343,7 @@ class Options
      */
     public function getDisplayStart()
     {
-        return (integer) $this->displayStart;
+        return (integer)$this->displayStart;
     }
 
     /**
@@ -345,7 +355,7 @@ class Options
      */
     protected function setDeferLoading($deferLoading)
     {
-        $this->deferLoading = (integer) $deferLoading;
+        $this->deferLoading = (integer)$deferLoading;
 
         return $this;
     }
@@ -357,7 +367,7 @@ class Options
      */
     public function getDeferLoading()
     {
-        return (integer) $this->deferLoading;
+        return (integer)$this->deferLoading;
     }
 
     /**
@@ -417,7 +427,7 @@ class Options
      */
     protected function setOrderClasses($orderClasses)
     {
-        $this->orderClasses = (boolean) $orderClasses;
+        $this->orderClasses = (boolean)$orderClasses;
 
         return $this;
     }
@@ -429,7 +439,7 @@ class Options
      */
     public function getOrderClasses()
     {
-        return (boolean) $this->orderClasses;
+        return (boolean)$this->orderClasses;
     }
 
     /**
@@ -442,16 +452,17 @@ class Options
      */
     protected function setOrder(array $order)
     {
-        foreach($order as $o) {
-            if( !is_array($o) ||
+        foreach ($order as $o) {
+            if (!is_array($o) ||
                 !array_key_exists(0, $o) ||
                 !is_numeric($o[0]) ||
                 !array_key_exists(1, $o) ||
-                !in_array($o[1], array('desc', 'asc'))){
+                !in_array($o[1], array('desc', 'asc'))
+            ) {
                 throw new \Exception('setOrder(): Invalid array format.');
             }
         }
-        
+
         $this->order = $order;
 
         return $this;
@@ -476,7 +487,7 @@ class Options
      */
     protected function setOrderMulti($orderMulti)
     {
-        $this->orderMulti = (boolean) $orderMulti;
+        $this->orderMulti = (boolean)$orderMulti;
 
         return $this;
     }
@@ -488,7 +499,7 @@ class Options
      */
     public function getOrderMulti()
     {
-        return (boolean) $this->orderMulti;
+        return (boolean)$this->orderMulti;
     }
 
     /**
@@ -500,7 +511,7 @@ class Options
      */
     protected function setPageLength($pageLength)
     {
-        $this->pageLength = (integer) $pageLength;
+        $this->pageLength = (integer)$pageLength;
 
         return $this;
     }
@@ -512,7 +523,7 @@ class Options
      */
     public function getPageLength()
     {
-        return (integer) $this->pageLength;
+        return (integer)$this->pageLength;
     }
 
     /**
@@ -572,7 +583,7 @@ class Options
      */
     protected function setScrollCollapse($scrollCollapse)
     {
-        $this->scrollCollapse = (boolean) $scrollCollapse;
+        $this->scrollCollapse = (boolean)$scrollCollapse;
 
         return $this;
     }
@@ -584,7 +595,7 @@ class Options
      */
     public function getScrollCollapse()
     {
-        return (boolean) $this->scrollCollapse;
+        return (boolean)$this->scrollCollapse;
     }
 
     /**
@@ -620,7 +631,7 @@ class Options
      */
     protected function setStateDuration($stateDuration)
     {
-        $this->stateDuration = (integer) $stateDuration;
+        $this->stateDuration = (integer)$stateDuration;
 
         return $this;
     }
@@ -632,7 +643,7 @@ class Options
      */
     public function getStateDuration()
     {
-        return (integer) $this->stateDuration;
+        return (integer)$this->stateDuration;
     }
 
     /**
@@ -668,7 +679,7 @@ class Options
      */
     protected function setResponsive($responsive)
     {
-        $this->responsive = (boolean) $responsive;
+        $this->responsive = (boolean)$responsive;
 
         return $this;
     }
@@ -680,7 +691,7 @@ class Options
      */
     public function getResponsive()
     {
-        return (boolean) $this->responsive;
+        return (boolean)$this->responsive;
     }
 
     /**
@@ -716,7 +727,7 @@ class Options
      */
     protected function setIndividualFiltering($individualFiltering)
     {
-        $this->individualFiltering = (boolean) $individualFiltering;
+        $this->individualFiltering = (boolean)$individualFiltering;
 
         return $this;
     }
@@ -728,7 +739,7 @@ class Options
      */
     public function getIndividualFiltering()
     {
-        return (boolean) $this->individualFiltering;
+        return (boolean)$this->individualFiltering;
     }
 
     /**

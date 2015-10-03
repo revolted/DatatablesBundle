@@ -177,37 +177,43 @@ class Callbacks
      */
     private function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'created_row' => '',
-            'draw_callback' => '',
-            'footer_callback' => '',
-            'format_number' => '',
-            'header_callback' => '',
-            'info_callback' => '',
-            'init_complete' => '',
-            'pre_draw_callback' => '',
-            'row_callback' => '',
-            'state_load_callback' => '',
-            'state_loaded' => '',
-            'state_load_params' => '',
-            'state_save_callback' => '',
-            'state_save_params' => '',
-        ));
+        $resolver->setDefaults(
+            array(
+                'created_row' => '',
+                'draw_callback' => '',
+                'footer_callback' => '',
+                'format_number' => '',
+                'header_callback' => '',
+                'info_callback' => '',
+                'init_complete' => '',
+                'pre_draw_callback' => '',
+                'row_callback' => '',
+                'state_load_callback' => '',
+                'state_loaded' => '',
+                'state_load_params' => '',
+                'state_save_callback' => '',
+                'state_save_params' => '',
+            )
+        );
 
-        $resolver->setAllowedTypes('created_row', 'string');
-        $resolver->setAllowedTypes('draw_callback', 'string');
-        $resolver->setAllowedTypes('footer_callback', 'string');
-        $resolver->setAllowedTypes('format_number', 'string');
-        $resolver->setAllowedTypes('header_callback', 'string');
-        $resolver->setAllowedTypes('info_callback', 'string');
-        $resolver->setAllowedTypes('init_complete', 'string');
-        $resolver->setAllowedTypes('pre_draw_callback', 'string');
-        $resolver->setAllowedTypes('row_callback', 'string');
-        $resolver->setAllowedTypes('state_load_callback', 'string');
-        $resolver->setAllowedTypes('state_loaded', 'string');
-        $resolver->setAllowedTypes('state_load_params', 'string');
-        $resolver->setAllowedTypes('state_save_callback', 'string');
-        $resolver->setAllowedTypes('state_save_params', 'string');
+        $resolver->setAllowedTypes(
+            array(
+                'created_row' => 'string',
+                'draw_callback' => 'string',
+                'footer_callback' => 'string',
+                'format_number' => 'string',
+                'header_callback' => 'string',
+                'info_callback' => 'string',
+                'init_complete' => 'string',
+                'pre_draw_callback' => 'string',
+                'row_callback' => 'string',
+                'state_load_callback' => 'string',
+                'state_loaded' => 'string',
+                'state_load_params' => 'string',
+                'state_save_callback' => 'string',
+                'state_save_params' => 'string',
+            )
+        );
 
         return $this;
     }
@@ -226,11 +232,11 @@ class Callbacks
 
         foreach ($options as $key => $value) {
             $key = Container::camelize($key);
-            $method = 'set' . ucfirst($key);
+            $method = 'set'.ucfirst($key);
             if (in_array($method, $methods)) {
                 $this->$method($value);
             } else {
-                throw new Exception('callingSettersWithOptions(): ' . $method . ' invalid method name');
+                throw new Exception('callingSettersWithOptions(): '.$method.' invalid method name');
             }
         }
 
@@ -248,7 +254,7 @@ class Callbacks
      */
     public function getCreatedRow()
     {
-        return (string) $this->createdRow;
+        return (string)$this->createdRow;
     }
 
     /**
@@ -272,7 +278,7 @@ class Callbacks
      */
     public function getDrawCallback()
     {
-        return (string) $this->drawCallback;
+        return (string)$this->drawCallback;
     }
 
     /**
@@ -296,7 +302,7 @@ class Callbacks
      */
     public function getFooterCallback()
     {
-        return (string) $this->footerCallback;
+        return (string)$this->footerCallback;
     }
 
     /**
@@ -320,7 +326,7 @@ class Callbacks
      */
     public function getFormatNumber()
     {
-        return (string) $this->formatNumber;
+        return (string)$this->formatNumber;
     }
 
     /**
@@ -344,7 +350,7 @@ class Callbacks
      */
     public function getHeaderCallback()
     {
-        return (string) $this->headerCallback;
+        return (string)$this->headerCallback;
     }
 
     /**
@@ -368,7 +374,7 @@ class Callbacks
      */
     public function getInfoCallback()
     {
-        return (string) $this->infoCallback;
+        return (string)$this->infoCallback;
     }
 
     /**
@@ -392,7 +398,7 @@ class Callbacks
      */
     public function getInitComplete()
     {
-        return (string) $this->initComplete;
+        return (string)$this->initComplete;
     }
 
     /**
@@ -416,7 +422,7 @@ class Callbacks
      */
     public function getPreDrawCallback()
     {
-        return (string) $this->preDrawCallback;
+        return (string)$this->preDrawCallback;
     }
 
     /**
@@ -440,7 +446,7 @@ class Callbacks
      */
     public function getRowCallback()
     {
-        return (string) $this->rowCallback;
+        return (string)$this->rowCallback;
     }
 
     /**
@@ -464,7 +470,7 @@ class Callbacks
      */
     public function getStateLoadCallback()
     {
-        return (string) $this->stateLoadCallback;
+        return (string)$this->stateLoadCallback;
     }
 
     /**
@@ -488,7 +494,7 @@ class Callbacks
      */
     public function getStateLoaded()
     {
-        return (string) $this->stateLoaded;
+        return (string)$this->stateLoaded;
     }
 
     /**
@@ -512,7 +518,7 @@ class Callbacks
      */
     public function getStateLoadParams()
     {
-        return (string) $this->stateLoadParams;
+        return (string)$this->stateLoadParams;
     }
 
     /**
@@ -536,7 +542,7 @@ class Callbacks
      */
     public function getStateSaveCallback()
     {
-        return (string) $this->stateSaveCallback;
+        return (string)$this->stateSaveCallback;
     }
 
     /**
@@ -560,7 +566,7 @@ class Callbacks
      */
     public function getStateSaveParams()
     {
-        return (string) $this->stateSaveParams;
+        return (string)$this->stateSaveParams;
     }
 
     /**

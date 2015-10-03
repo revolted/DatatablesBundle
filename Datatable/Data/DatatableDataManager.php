@@ -52,13 +52,13 @@ class DatatableDataManager
     /**
      * Ctor.
      *
-     * @param RequestStack $requestStack
+     * @param Request $request
      * @param Serializer   $serializer
      * @param array        $configs
      */
-    public function __construct(RequestStack $requestStack, Serializer $serializer, array $configs)
+    public function __construct(Request $request, Serializer $serializer, array $configs)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $request;
         $this->serializer = $serializer;
         $this->configs = $configs;
     }

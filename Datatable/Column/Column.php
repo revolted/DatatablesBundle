@@ -71,44 +71,68 @@ class Column extends AbstractColumn
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'class' => '',
-            'padding' => '',
-            'name' => '',
-            'orderable' => true,
-            'render' => null,
-            'searchable' => true,
-            'title' => '',
-            'type' => '',
-            'visible' => true,
-            'width' => '',
-            'search_type' => 'like',
-            'filter_type' => 'text',
-            'filter_options' => array(),
-            'filter_property' => '',
-            'filter_search_column' => '',
-            'default' => ''
-        ));
+        $resolver->setDefaults(
+            array(
+                'class' => '',
+                'padding' => '',
+                'name' => '',
+                'orderable' => true,
+                'render' => null,
+                'searchable' => true,
+                'title' => '',
+                'type' => '',
+                'visible' => true,
+                'width' => '',
+                'search_type' => 'like',
+                'filter_type' => 'text',
+                'filter_options' => array(),
+                'filter_property' => '',
+                'filter_search_column' => '',
+                'default' => '',
+            )
+        );
 
-        $resolver->setAllowedTypes('class', 'string');
-        $resolver->setAllowedTypes('padding', 'string');
-        $resolver->setAllowedTypes('name', 'string');
-        $resolver->setAllowedTypes('orderable', 'bool');
-        $resolver->setAllowedTypes('render', array('string', 'null'));
-        $resolver->setAllowedTypes('searchable', 'bool');
-        $resolver->setAllowedTypes('title', 'string');
-        $resolver->setAllowedTypes('type', 'string');
-        $resolver->setAllowedTypes('visible', 'bool');
-        $resolver->setAllowedTypes('width', 'string');
-        $resolver->setAllowedTypes('search_type', 'string');
-        $resolver->setAllowedTypes('filter_type', 'string');
-        $resolver->setAllowedTypes('filter_options', 'array');
-        $resolver->setAllowedTypes('filter_property', 'string');
-        $resolver->setAllowedTypes('filter_search_column', 'string');
-        $resolver->setAllowedTypes('default', 'string');
+        $resolver->setAllowedTypes(
+            array(
+                'class' => 'string',
+                'padding' => 'string',
+                'name' => 'string',
+                'orderable' => 'bool',
+                'render' => array('string' => 'null'),
+                'searchable' => 'bool',
+                'title' => 'string',
+                'type' => 'string',
+                'visible' => 'bool',
+                'width' => 'string',
+                'search_type' => 'string',
+                'filter_type' => 'string',
+                'filter_options' => 'array',
+                'filter_property' => 'string',
+                'filter_search_column' => 'string',
+                'default' => 'string',
+            )
+        );
 
-        $resolver->setAllowedValues('search_type', array('like', 'notLike', 'eq', 'neq', 'lt', 'lte', 'gt', 'gte', 'in', 'notIn', 'isNull', 'isNotNull'));
-        $resolver->setAllowedValues('filter_type', array('text', 'select'));
+        $resolver->setAllowedValues(
+            array(
+                'search_type' =>
+                    array(
+                        'like',
+                        'notLike',
+                        'eq',
+                        'neq',
+                        'lt',
+                        'lte',
+                        'gt',
+                        'gte',
+                        'in',
+                        'notIn',
+                        'isNull',
+                        'isNotNull',
+                    ),
+            )
+        );
+        $resolver->setAllowedValues(array('filter_type' => array('text', 'select')));
 
         return $this;
     }

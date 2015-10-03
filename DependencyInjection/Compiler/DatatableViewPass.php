@@ -34,8 +34,7 @@ class DatatableViewPass implements CompilerPassInterface
 
         foreach ($taggedServices as $id => $tags) {
             $def = $container->getDefinition($id);
-            $def->addArgument(new Reference('security.authorization_checker'));
-            $def->addArgument(new Reference('security.token_storage'));
+            $def->addArgument(new Reference('security.context'));
             $def->addArgument(new Reference('twig'));
             $def->addArgument(new Reference('translator.default'));
             $def->addArgument(new Reference('router'));
