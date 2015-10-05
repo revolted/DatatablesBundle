@@ -58,9 +58,14 @@
                     $(selector + '_wrapper tfoot tr').clone().insertAfter($(selector + '_wrapper thead tr').first());
                 {% endif %}
 
-                var daterange = $('input[name="daterange"]');
+                var daterange = $('input.daterange');
                 try {
-                    $(daterange).daterangepicker();
+                    $(daterange).daterangepicker({
+                        locale: {
+                            "format": "DD-MM",
+                            "separator": "-",
+                        }
+                    });
                 } catch (e) {
                     console.log(e.message);
                 }

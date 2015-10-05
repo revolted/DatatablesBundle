@@ -52,6 +52,13 @@ abstract class AbstractColumn implements ColumnInterface, OptionsInterface
     protected $class;
 
     /**
+     * Set dfilter class for a column.
+     *
+     * @var string
+     */
+    protected $filterClass;
+
+    /**
      * Add padding to the text content used when calculating the optimal with for a table.
      * Option: padding
      *
@@ -107,6 +114,14 @@ abstract class AbstractColumn implements ColumnInterface, OptionsInterface
      * @var string
      */
     protected $title;
+
+    /**
+     * Set the column placeholder.
+     * Option: title
+     *
+     * @var string
+     */
+    protected $placeholder;
 
     /**
      * Set the column type - used for filtering and sorting string processing.
@@ -581,12 +596,15 @@ abstract class AbstractColumn implements ColumnInterface, OptionsInterface
     /**
      * Set filter options.
      *
-     * @param array $filterOptions
+     * @param array|\Closure $filterOptions
      *
      * @return $this
      */
-    public function setFilterOptions(array $filterOptions)
+    public function setFilterOptions($filterOptions)
     {
+        if ($filterOptions instanceof \Closure) {
+            $filterOptions = $filterOptions();
+        }
         $this->filterOptions = $filterOptions;
 
         return $this;
@@ -648,5 +666,37 @@ abstract class AbstractColumn implements ColumnInterface, OptionsInterface
     public function getFilterSearchColumn()
     {
         return $this->filterSearchColumn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlaceholder()
+    {
+        return $this->placeholder;
+    }
+
+    /**
+     * @param string $placeholder
+     */
+    public function setPlaceholder($placeholder)
+    {
+        $this->placeholder = $placeholder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilterClass()
+    {
+        return $this->filterClass;
+    }
+
+    /**
+     * @param string $filterClass
+     */
+    public function setFilterClass($filterClass)
+    {
+        $this->filterClass = $filterClass;
     }
 }

@@ -89,8 +89,7 @@ class ArrayColumn extends Column
         $resolver->setDefaults(
             array(
                 'count' => false,
-                'count_action',
-                array(),
+                'count_action' => array(),
             )
         );
 

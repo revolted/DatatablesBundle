@@ -30,7 +30,7 @@ class ColumnBuilder implements ColumnBuilderInterface
     /**
      * All columns.
      *
-     * @var array
+     * @var Column[]
      */
     private $columns;
 
@@ -108,6 +108,37 @@ class ColumnBuilder implements ColumnBuilderInterface
         $this->columns = array_values($this->columns);
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getColumnByName($name)
+    {
+        $result = null;
+        foreach ($this->columns as $index => $column) {
+            if ($column->getData() === $name) {
+                $result = $column;
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getColumnIndexByName($name)
+    {
+        $index = null;
+        foreach ($this->columns as $index => $column) {
+            if ($column->getData() === $name) {
+                break;
+            }
+        }
+
+        return $index;
     }
 
     /**

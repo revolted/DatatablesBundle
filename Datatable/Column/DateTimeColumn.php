@@ -33,9 +33,36 @@ class DateTimeColumn extends TimeagoColumn
      */
     protected $dateFormat;
 
+    /**
+     *  DateTime format string for JS rendering
+     *
+     * @var string
+     */
+    protected $renderDateFormat;
+
     //-------------------------------------------------
     // ColumnInterface
     //-------------------------------------------------
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setupOptionsResolver(array $options)
+    {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        if (!isset($options['name'])) {
+            $options['name'] = 'daterange_'.$this->getData();
+        }
+
+
+        $this->options = $resolver->resolve($options);
+
+        $this->setOptions($this->options);
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}
@@ -65,11 +92,16 @@ class DateTimeColumn extends TimeagoColumn
         parent::configureOptions($resolver);
 
         $resolver->setDefaults(array(
+            'class' => 'daterange',
             'render' => 'render_datetime',
-            'date_format' => 'lll',
+            'date_format' => 'DD-MM-YYYY',
+            'render_date_format' => 'DD-MM',
         ));
 
-        $resolver->addAllowedTypes(array('date_format' => 'string'));
+        $resolver->addAllowedTypes(array(
+            'date_format' => 'string',
+            'render_date_format' => array('string', 'null'),
+        ));
 
         return $this;
     }
@@ -104,5 +136,21 @@ class DateTimeColumn extends TimeagoColumn
     public function getDateFormat()
     {
         return $this->dateFormat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRenderDateFormat()
+    {
+        return $this->renderDateFormat;
+    }
+
+    /**
+     * @param string $renderDateFormat
+     */
+    public function setRenderDateFormat($renderDateFormat)
+    {
+        $this->renderDateFormat = $renderDateFormat;
     }
 }

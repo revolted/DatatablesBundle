@@ -49,7 +49,7 @@ class ColumnFactory implements ColumnFactoryInterface
     public function createColumnByName($name)
     {
         if (empty($name) || !is_string($name) && !$name instanceof ColumnInterface) {
-            throw new InvalidArgumentException('createColumnByName(): String or ColumnInterface expected.');
+            throw new \InvalidArgumentException('createColumnByName(): String or ColumnInterface expected.');
         }
 
         if ($name instanceof ColumnInterface) {
@@ -86,11 +86,11 @@ class ColumnFactory implements ColumnFactoryInterface
                 $this->column = new VirtualColumn();
                 break;
             default:
-                throw new InvalidArgumentException('createColumnByName(): The column is not supported.');
+                throw new \InvalidArgumentException('createColumnByName(): The column is not supported.');
         }
 
         if (null === $this->column) {
-            throw new InvalidArgumentException('createColumnByName(): The column could not be created.');
+            throw new \InvalidArgumentException('createColumnByName(): The column could not be created.');
         }
 
         return $this->column;

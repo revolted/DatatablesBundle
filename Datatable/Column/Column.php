@@ -38,7 +38,7 @@ class Column extends AbstractColumn
     public function setData($data)
     {
         if (empty($data) || !is_string($data)) {
-            throw new InvalidArgumentException('setData(): Expecting non-empty string.');
+            throw new \InvalidArgumentException('setData(): Expecting non-empty string.');
         }
 
         $this->data = $data;
@@ -78,11 +78,13 @@ class Column extends AbstractColumn
                 'name' => '',
                 'orderable' => true,
                 'render' => null,
-                'searchable' => true,
+                'searchable' => false,
                 'title' => '',
+                'filter_class' => null,
                 'type' => '',
                 'visible' => true,
                 'width' => '',
+                'placeholder' => 'Selecteer...',
                 'search_type' => 'like',
                 'filter_type' => 'text',
                 'filter_options' => array(),
@@ -98,15 +100,17 @@ class Column extends AbstractColumn
                 'padding' => 'string',
                 'name' => 'string',
                 'orderable' => 'bool',
-                'render' => array('string' => 'null'),
+                'render' => array('string', 'null'),
                 'searchable' => 'bool',
                 'title' => 'string',
+                'filter_class' => array('string', 'null'),
                 'type' => 'string',
                 'visible' => 'bool',
                 'width' => 'string',
+                'placeholder' => array('string', 'null'),
                 'search_type' => 'string',
                 'filter_type' => 'string',
-                'filter_options' => 'array',
+                'filter_options' => array('array', 'closure') ,
                 'filter_property' => 'string',
                 'filter_search_column' => 'string',
                 'default' => 'string',

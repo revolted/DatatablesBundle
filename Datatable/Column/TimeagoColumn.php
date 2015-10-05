@@ -31,7 +31,7 @@ class TimeagoColumn extends AbstractColumn
     public function setData($data)
     {
         if (empty($data) || !is_string($data)) {
-            throw new InvalidArgumentException('setData(): Expecting non-empty string.');
+            throw new \InvalidArgumentException('setData(): Expecting non-empty string.');
         }
 
         $this->data = $data;
@@ -72,7 +72,9 @@ class TimeagoColumn extends AbstractColumn
                 'orderable' => true,
                 'render' => 'render_timeago',
                 'searchable' => true,
+                'placeholder' => 'Selecteer...',
                 'title' => '',
+                'filter_class' => 'daterange',
                 'type' => '',
                 'visible' => true,
                 'width' => '',
@@ -89,7 +91,9 @@ class TimeagoColumn extends AbstractColumn
                 'class' => 'string',
                 'padding' => 'string',
                 'name' => 'string',
+                'placeholder' => array('string', 'null'),
                 'title' => 'string',
+                'filter_class' => array('string', 'null'),
                 'type' => 'string',
                 'visible' => 'bool',
                 'width' => 'string',

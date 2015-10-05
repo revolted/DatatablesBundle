@@ -132,8 +132,7 @@ class Action implements OptionsInterface
 
         $resolver->setAllowedTypes(
             array(
-                'route',
-                'string',
+                'route' => 'string',
                 'route_parameters' => 'array',
                 'icon' => 'string',
                 'label' => 'string',

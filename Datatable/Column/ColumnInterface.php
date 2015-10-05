@@ -19,6 +19,18 @@ namespace Sg\DatatablesBundle\Datatable\Column;
 interface ColumnInterface
 {
     /**
+     * Column Types
+     */
+    const ACTION = 'action';
+    const ARRAY_COLUMN = 'array';
+    const BOOLEAN = 'boolean';
+    const COLUMN = 'column';
+    const DATETIME = 'datetime';
+    const MULTI_SELECT = 'multiselect';
+    const TIME_AGO = 'timeago';
+    const VIRTUAL = 'virtual';
+
+    /**
      * Set data.
      *
      * @param null|string $data

@@ -446,7 +446,10 @@ class DatatableQuery
                     $searchType = $column->getSearchType();
                     $searchField = $this->searchColumns[$key];
                     $searchValue = $this->requestParams['columns'][$key]['search']['value'];
-                    $searchRange = $this->requestParams['columns'][$key]['name'] === 'daterange';
+
+//                    $column->setFilterSearchColumn($searchValue);
+
+                    $searchRange = substr($this->requestParams['columns'][$key]['name'], 0, 9) === 'daterange';
                     if ('' != $searchValue && 'null' != $searchValue) {
                         if ($searchRange) {
                             list($_dateStart, $_dateEnd) = explode(' - ', $searchValue);
