@@ -90,6 +90,7 @@ class Column extends AbstractColumn
                 'filter_options' => array(),
                 'filter_property' => '',
                 'filter_search_column' => '',
+                'search_field' => '',
                 'default' => '',
             )
         );
@@ -113,6 +114,7 @@ class Column extends AbstractColumn
                 'filter_options' => array('array', 'closure') ,
                 'filter_property' => 'string',
                 'filter_search_column' => 'string',
+                'search_field' => array('string', 'array', 'null'),
                 'default' => 'string',
             )
         );

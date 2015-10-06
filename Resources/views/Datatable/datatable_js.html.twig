@@ -48,10 +48,12 @@
                 var oTable = $(selector).DataTable(defaults);
             }
 
+
+
             {% if view_options.individualFiltering %}
 
                 {% if "head" == view_options.individualFilteringPosition %}
-                    $(selector + '_wrapper tfoot tr').insertAfter($(selector + '_wrapper thead tr').first());
+                    $(selector + '_wrapper tfoot tr').insertAfter($(selector + '_wrapper thead tr:nth-child(1)'));
                 {% endif %}
 
                 {% if "both" == view_options.individualFilteringPosition %}
@@ -63,7 +65,7 @@
                     $(daterange).daterangepicker({
                         locale: {
                             "format": "DD-MM",
-                            "separator": "-",
+                            "separator": "-"
                         }
                     });
                 } catch (e) {

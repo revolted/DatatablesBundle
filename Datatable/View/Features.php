@@ -180,7 +180,7 @@ class Features
     {
         $resolver->setDefaults(
             array(
-                'auto_width' => true,
+                'auto_width' => false,
                 'defer_render' => false,
                 'info' => true,
                 'jquery_ui' => false,

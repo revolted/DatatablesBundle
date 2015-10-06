@@ -45,6 +45,13 @@ class ActionColumn extends AbstractColumn
      */
     protected $actions;
 
+    /**
+     * Reset button
+     *
+     * @var boolean
+     */
+    protected $reset = false;
+
     //-------------------------------------------------
     // ColumnInterface
     //-------------------------------------------------
@@ -96,6 +103,7 @@ class ActionColumn extends AbstractColumn
                 'padding' => '',
                 'name' => '',
                 'title' => '',
+                'reset' => false,
                 'type' => '',
                 'visible' => true,
                 'width' => '',
@@ -110,6 +118,7 @@ class ActionColumn extends AbstractColumn
                 'padding' => 'string',
                 'name' => 'string',
                 'title' => 'string',
+                'reset' => 'bool',
                 'type' => 'string',
                 'visible' => 'bool',
                 'width' => 'string',
@@ -199,5 +208,21 @@ class ActionColumn extends AbstractColumn
     public function getActions()
     {
         return $this->actions;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReset()
+    {
+        return $this->reset;
+    }
+
+    /**
+     * @param boolean $reset
+     */
+    public function setReset($reset)
+    {
+        $this->reset = $reset;
     }
 }

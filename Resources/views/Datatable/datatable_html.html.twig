@@ -10,6 +10,10 @@
                         <td>
                             {% if column.searchable %}
                                 {{ datatable_filter_render(datatable, column, loop.index0) }}
+                            {% elseif column.reset is defined and column.reset %}
+                                <a href="javascript://" title="Filter verwijderen" onclick="$('#{{ view_table_id }}').reset();$('#{{ view_table_id }}').dataTable().fnFilterClear(); return false;">
+                                    <i class="icon-remove"></i>
+                                </a>
                             {% endif %}
                         </td>
                     {% endfor %}

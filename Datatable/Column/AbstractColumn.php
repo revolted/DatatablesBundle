@@ -108,6 +108,14 @@ abstract class AbstractColumn implements ColumnInterface, OptionsInterface
     protected $searchable;
 
     /**
+     * Set the DQL search columns
+     * Option: search_field
+     *
+     * @var string|array
+     */
+    protected $searchField;
+
+    /**
      * Set the column title.
      * Option: title
      *
@@ -698,5 +706,21 @@ abstract class AbstractColumn implements ColumnInterface, OptionsInterface
     public function setFilterClass($filterClass)
     {
         $this->filterClass = $filterClass;
+    }
+
+    /**
+     * @return array|string
+     */
+    public function getSearchField()
+    {
+        return $this->searchField;
+    }
+
+    /**
+     * @param array|string $searchField
+     */
+    public function setSearchField($searchField)
+    {
+        $this->searchField = $searchField;
     }
 }

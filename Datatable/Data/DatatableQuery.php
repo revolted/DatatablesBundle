@@ -11,6 +11,8 @@
 
 namespace Sg\DatatablesBundle\Datatable\Data;
 
+use Doctrine\ORM\Query\Expr\Composite;
+use Sg\DatatablesBundle\Datatable\Column\VirtualColumn;
 use Sg\DatatablesBundle\Datatable\View\DatatableViewInterface;
 use Sg\DatatablesBundle\Datatable\Column\AbstractColumn;
 
@@ -416,13 +418,12 @@ class DatatableQuery
      */
     private function setWhere(QueryBuilder $qb)
     {
+        $orExpr = $qb->expr()->orX();
+        $andExpr = $qb->expr()->andX();
         $globalSearch = $this->requestParams['search']['value'];
 
         // global filtering
         if ('' != $globalSearch) {
-
-            $orExpr = $qb->expr()->orX();
-
             foreach ($this->columns as $key => $column) {
                 if (true === $this->isSearchColumn($column)) {
                     $searchField = $this->searchColumns[$key];
@@ -436,7 +437,6 @@ class DatatableQuery
 
         // individual filtering
         if (true === $this->individualFiltering) {
-            $andExpr = $qb->expr()->andX();
 
             $i = 100;
 
@@ -446,9 +446,6 @@ class DatatableQuery
                     $searchType = $column->getSearchType();
                     $searchField = $this->searchColumns[$key];
                     $searchValue = $this->requestParams['columns'][$key]['search']['value'];
-
-//                    $column->setFilterSearchColumn($searchValue);
-
                     $searchRange = substr($this->requestParams['columns'][$key]['name'], 0, 9) === 'daterange';
                     if ('' != $searchValue && 'null' != $searchValue) {
                         if ($searchRange) {
@@ -462,6 +459,20 @@ class DatatableQuery
                             $qb->setParameter($i, $dateStart->format('Y-m-d H:i:s'));
                             $qb->setParameter($k, $dateEnd->format('Y-m-d H:i:s'));
                             $i += 2;
+                        } elseif ($column instanceof VirtualColumn) {
+                            $dqlSearchField = $column->getSearchField();
+                            if (is_array($dqlSearchField)) {
+                                foreach($dqlSearchField as $dqlField) {
+                                    $orExpr = $this->addCondition($orExpr, $qb, $searchType, $dqlField, $searchValue, $i);
+                                    $i++;
+                                }
+                                if ($orExpr->count() > 0) {
+                                    $qb->orWhere($orExpr);
+                                }
+                            } elseif (is_string($dqlSearchField)) {
+                                $andExpr = $this->addCondition($andExpr, $qb, $searchType, $dqlSearchField, $searchValue, $i);
+                                $i++;
+                            }
                         } else {
                             $andExpr = $this->addCondition($andExpr, $qb, $searchType, $searchField, $searchValue, $i);
                             $i++;
@@ -473,6 +484,7 @@ class DatatableQuery
             if ($andExpr->count() > 0) {
                 $qb->andWhere($andExpr);
             }
+
         }
 
         return $this;
@@ -481,7 +493,7 @@ class DatatableQuery
     /**
      * Add a condition.
      *
-     * @param Andx         $andExpr
+     * @param Composite         $expr
      * @param QueryBuilder $pivot
      * @param string       $searchType
      * @param string       $searchField
@@ -490,58 +502,58 @@ class DatatableQuery
      *
      * @return Andx
      */
-    private function addCondition(Andx $andExpr, QueryBuilder $pivot, $searchType, $searchField, $searchValue, $i)
+    private function addCondition(Composite $expr, QueryBuilder $pivot, $searchType, $searchField, $searchValue, $i)
     {
         switch ($searchType) {
             case 'like':
-                $andExpr->add($pivot->expr()->like($searchField, '?' . $i));
+                $expr->add($pivot->expr()->like($searchField, '?' . $i));
                 $pivot->setParameter($i, '%' . $searchValue . '%');
                 break;
             case 'notLike':
-                $andExpr->add($pivot->expr()->notLike($searchField, '?' . $i));
+                $expr->add($pivot->expr()->notLike($searchField, '?' . $i));
                 $pivot->setParameter($i, '%' . $searchValue . '%');
                 break;
             case 'eq':
-                $andExpr->add($pivot->expr()->eq($searchField, '?' . $i));
+                $expr->add($pivot->expr()->eq($searchField, '?' . $i));
                 $pivot->setParameter($i, $searchValue);
                 break;
             case 'neq':
-                $andExpr->add($pivot->expr()->neq($searchField, '?' . $i));
+                $expr->add($pivot->expr()->neq($searchField, '?' . $i));
                 $pivot->setParameter($i, $searchValue);
                 break;
             case 'lt':
-                $andExpr->add($pivot->expr()->lt($searchField, '?' . $i));
+                $expr->add($pivot->expr()->lt($searchField, '?' . $i));
                 $pivot->setParameter($i, $searchValue);
                 break;
             case 'lte':
-                $andExpr->add($pivot->expr()->lte($searchField, '?' . $i));
+                $expr->add($pivot->expr()->lte($searchField, '?' . $i));
                 $pivot->setParameter($i, $searchValue);
                 break;
             case 'gt':
-                $andExpr->add($pivot->expr()->gt($searchField, '?' . $i));
+                $expr->add($pivot->expr()->gt($searchField, '?' . $i));
                 $pivot->setParameter($i, $searchValue);
                 break;
             case 'gte':
-                $andExpr->add($pivot->expr()->gte($searchField, '?' . $i));
+                $expr->add($pivot->expr()->gte($searchField, '?' . $i));
                 $pivot->setParameter($i, $searchValue);
                 break;
             case 'in':
-                $andExpr->add($pivot->expr()->in($searchField, '?' . $i));
+                $expr->add($pivot->expr()->in($searchField, '?' . $i));
                 $pivot->setParameter($i, explode(',', $searchValue));
                 break;
             case 'notIn':
-                $andExpr->add($pivot->expr()->notIn($searchField, '?' . $i));
+                $expr->add($pivot->expr()->notIn($searchField, '?' . $i));
                 $pivot->setParameter($i, explode(",", $searchValue));
                 break;
             case 'isNull':
-                $andExpr->add($pivot->expr()->isNull($searchField));
+                $expr->add($pivot->expr()->isNull($searchField));
                 break;
             case 'isNotNull':
-                $andExpr->add($pivot->expr()->isNull($searchField));
+                $expr->add($pivot->expr()->isNull($searchField));
                 break;
         }
 
-        return $andExpr;
+        return $expr;
     }
 
     /**

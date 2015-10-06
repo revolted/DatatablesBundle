@@ -162,6 +162,7 @@ class Callbacks
      */
     public function setCallbacks(array $callbacks)
     {
+        $callbacks = array_merge($this->callbacks, $callbacks);
         $this->callbacks = $this->resolver->resolve($callbacks);
         $this->callingSettersWithOptions($this->callbacks);
 

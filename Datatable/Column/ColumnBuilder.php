@@ -127,15 +127,18 @@ class ColumnBuilder implements ColumnBuilderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param $name
+     * @return int|null|string
      */
     public function getColumnIndexByName($name)
     {
-        $index = null;
-        foreach ($this->columns as $index => $column) {
+        $index = -1;
+        foreach ($this->columns as $column) {
             if ($column->getData() === $name) {
+                $index++;
                 break;
             }
+            $index++;
         }
 
         return $index;
