@@ -8,7 +8,7 @@
                 <tr>
                     {% for column in view_columns %}
                         <td>
-                            {% if view_options.searchable and column.searchable %}
+                            {% if column.searchable %}
                                 {{ datatable_filter_render(datatable, column, loop.index0) }}
                             {% elseif column.reset is defined and column.reset %}
                                 <a href="javascript://" title="Filter verwijderen" onclick="$('#{{ view_table_id }}').reset();$('#{{ view_table_id }}').dataTable().fnFilterClear(); return false;">
