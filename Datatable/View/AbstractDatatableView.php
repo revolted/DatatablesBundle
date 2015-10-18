@@ -277,6 +277,14 @@ abstract class AbstractDatatableView implements DatatableViewInterface
     /**
      * {@inheritdoc}
      */
+    public function getExportLineFormatter()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getEntityManager()
     {
         return $this->em;

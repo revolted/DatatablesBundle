@@ -11,6 +11,7 @@
 
 namespace Sg\DatatablesBundle\Datatable\Data;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Composite;
 use Sg\DatatablesBundle\Datatable\Column\VirtualColumn;
 use Sg\DatatablesBundle\Datatable\View\DatatableViewInterface;
@@ -168,7 +169,7 @@ class DatatableQuery
 
         $this->configs = $configs;
 
-        $this->setLineFormatter();
+        $this->setLineFormatter($this->datatableView->getLineFormatter());
         $this->setupColumnArrays();
     }
 
@@ -331,11 +332,12 @@ class DatatableQuery
     /**
      * Set the line formatter function.
      *
+     * @param null $lineFormatter
      * @return $this
      */
-    private function setLineFormatter()
+    public function setLineFormatter($lineFormatter = null)
     {
-        $this->lineFormatter = $this->datatableView->getLineFormatter();
+        $this->lineFormatter = $lineFormatter;
 
         return $this;
     }
@@ -688,6 +690,33 @@ class DatatableQuery
 
         return $response;
     }
+
+
+    //-------------------------------------------------
+    // Response data
+    //-------------------------------------------------
+
+    public function getData($buildQuery = true)
+    {
+        false === $buildQuery ? : $this->buildQuery();
+
+        $this->qb->getQuery()->setMaxResults(null);
+        $this->qb->setFirstResult(0)->setMaxResults(100000000);
+
+        $result = $this->execute()->getResult(AbstractQuery::HYDRATE_ARRAY);
+        $output = array('data' => array());
+        foreach ($result as $item) {
+            if (is_callable($this->lineFormatter)) {
+                $callable = $this->lineFormatter;
+                $item = call_user_func($callable, $item);
+            }
+
+            $output['data'][] = $item;
+        }
+
+        return $output;
+    }
+
 
     //-------------------------------------------------
     // Helper

@@ -78,6 +78,13 @@ interface DatatableViewInterface
     public function getLineFormatter();
 
     /**
+     * Returns a callable that could transform the data line for export
+     *
+     * @return callable
+     */
+    public function getExportLineFormatter();
+
+    /**
      * Get entity manager.
      *
      * @return EntityManagerInterface
