@@ -158,6 +158,13 @@ class DatatableDataManager
         $headerRange = "{$first}1:{$last}1";
         $sheet->getStyle($headerRange)->getFont()->setBold(true);
 
+        // Auto size columns
+        foreach (range('A', $document->getActiveSheet()->getHighestDataColumn()) as $col) {
+            $document->getActiveSheet()
+                ->getColumnDimension($col)
+                ->setAutoSize(true);
+        }
+
         $documentWriter = \PHPExcel_IOFactory::createWriter($document, $exportType);
 
         $response = new Response();
